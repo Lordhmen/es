@@ -20,11 +20,11 @@ while True:
             pygame.quit()
             sys.exit()
 
-    screen.fill((0,0,0))
+    screen.fill((0, 0, 0))
 
     for y, py in enumerate(pxarray):
         for x, px in enumerate(py):
-            if int(x) == (int(y)*int(y)) - 30*int(y) + 450:
+            if int(x) == (int(y) * int(y)) - 30 * int(y) + 450:
                 pxarray[y][x] = 0xFFFFFF
 
                 if first:

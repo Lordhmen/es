@@ -1,54 +1,40 @@
 import math
 import pygame
 
-
-def f_graph(xl):
-    yl = math.sin(xl+10)  # функцию менять здесь!
-    return (yl)
-
-a = -5  # левая граница для вычисления
-b = 5  # правая граница для вычисления
-
-grModeX = 800  # ширина окна
-grModeY = 600  # высота окна
 pygame.init()
-screen = pygame.display.set_mode([grModeX, grModeY], pygame.FULLSCREEN)
-
-sx = grModeX / (b - a)  # масштаб по X
-h = 1/sx  # шаг изменения аргумента
-xmid = grModeX // 2  # середина области построения по X
-ymid = grModeY // 2  # середина области построения по Y
-
-x = a
-maxF = f_graph(x)
-minF = maxF
-while x <= b:
-    y = f_graph(x)
-    if y < minF:
-        minF = y  # определяем минимальное значение функции
-    if y > maxF:
-        maxF = y  # определяем максимальное значение функции
-    x = x + h
-
-sy = grModeY / (maxF - minF)  # масштаб по Y
+screen = pygame.display.set_mode([800, 600])
 
 # рисуем ось X
-pygame.draw.line(screen, [255, 255, 255], [0, ymid], [grModeX, ymid])
+pygame.draw.line(screen, [255, 255, 255], [0, 300], [800, 300])
 
 # рисуем ось Y
-pygame.draw.line(screen, [255, 255, 255], [xmid, 0], [xmid, grModeY])
+pygame.draw.line(screen, [255, 255, 255], [400, 0], [400, 600])
 
 # рисуем график функции
-x = a
-# y=f_graph(x)
+R = 100
+s = 10
+d = 20
+r= 50
+m=2/5
+# for t in range(100000):
+#     # Эпициклоида 2
+#     x = 150 + (r + m * r) * math.cos(m * t) - m * r * math.cos(t + m * t)
+#     y = 150 + (r + m * r) * math.sin(m * t) - m * r * math.sin(t + m * t)
+#     screen.set_at([int(round(x + 100)), int(round(y))], [255, 255, 255])
+#     pygame.time.delay(10)
+#     pygame.display.flip()
 
-while x <= b:
-    y = f_graph(x)
-    screen.set_at([xmid + round(sx * x), ymid - round(sy * y)], [255, 255, 255])
-    x = x + h
-    pygame.time.delay(50)
+for i in range(360):
+    t = 6.28 * i / 360
+    # Эпициклоида
+    # x = 300 + ((R + s) * math.cos(t) - d * math.cos((R + s) / s * t))
+    # y = 300 + ((R + s) * math.sin(t) - d * math.sin((R + s) / s * t))
+    # Гипоциклоида
+    x = 300 + ((R - s) * math.cos(t) + d * math.cos((R - s) / s * t))
+    y = 300 + ((R - s) * math.sin(t) - d * math.sin((R - s) / s * t))
+    screen.set_at([int(round(x + 100)), int(round(y))], [255, 255, 255])
+    pygame.time.delay(10)
     pygame.display.flip()
 
 pygame.time.delay(2000)
-
 pygame.quit()

@@ -1,3 +1,5 @@
+import math
+
 import pygame
 
 pygame.init()
@@ -17,8 +19,8 @@ def run_game():
     pygame.quit()
 
 
-center = [200, 300]
-sizeDisplay = [500, 500]
+center = [500, 500]
+sizeDisplay = [1000, 1000]
 cellSize = [50, 50]
 
 screan = pygame.display.set_mode(sizeDisplay)
@@ -63,10 +65,19 @@ screan.blit(x, [sizeDisplay[0] - cellSize[0] / 4, center[1]])
 screan.blit(y, [center[0], 0])
 
 plotPointsSin = []
-for x in range(-200, 200):
-    y = - (x ** 2 + x * 110) / 20
-    plotPointsSin.append([x + center[0], y + center[1]])
+R = 100
+s = 10
+d = 20
 
-pygame.draw.lines(screan, [185, 83, 94], False, plotPointsSin, 2)
+for i in range(360):
+    t = 6.28 * i / 360
+    x = 300 + ((R + s) * math.cos(t) - d * math.cos((R + s) / s * t))
+    y = 300 + ((R + s) * math.sin(t) - d * math.sin((R + s) / s * t))
+    screan.set_at([int(round(x + 200)), int(round(y + 200))], [255, 255, 255])
+    print(x, y)
+    plotPointsSin.append([x + 200, y + 200])
+    print(plotPointsSin)
+
+#pygame.draw.lines(screan, [185, 83, 94], False, plotPointsSin, 4)
 
 run_game()

@@ -26,14 +26,20 @@ def run_game():
     pygame.quit()
 
 
-screan = pygame.display.set_mode([300, 300])
+screan = pygame.display.set_mode([600, 600])
 screan.fill([255, 255, 255])
 
 # Значения
 plotPoints = [[0, 0], [30, 30], [60, 0], [90, 30], [120, 0]]
 plotPointsSin = []
-for x in range(0, 300):
-    y = int(math.sin(x / 300 * 4 * math.pi) * 150 + 150)
+R = 100
+s = 10
+d = 20
+
+for i in range(360):
+    t = 6.28 * i / 360
+    x = 300 + ((R + s) * math.cos(t) - d * math.cos((R + s) / s * t))
+    y = 300 + ((R + s) * math.sin(t) - d * math.sin((R + s) / s * t))
     plotPointsSin.append([x, y])
 fontObj = pygame.font.SysFont("arial", 30)
 
